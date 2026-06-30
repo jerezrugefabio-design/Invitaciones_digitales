@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mis 15 Años - Valeria (Edición de Gala)</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cinzel (Majestic Serif), Great Vibes (Fairy Script) & Montserrat (Modern Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- GSAP Core for Ultra-Smooth Transitions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- YouTube IFrame API (motor de la música de fondo) -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#030511',       // Fondo de palacio noche profunda
+            crystalBlue: '#6fb2dc',    // Azul Cenicienta iluminado
+            hielo: '#d8ecf7',          // Azul hielo mágico
+            celeste: '#b0ddf4',        // Celeste suave
+            royalBlue: '#1a4a75',      // Azul real profundo para superposiciones
+            royalGold: '#f2c641',      // Oro brillante real
+          },
+          fontFamily: {
+            royal: ['Cinzel', 'serif'],
+            fairy: ['Great Vibes', 'cursive'],
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          keyframes: {
+            floating: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-10deg)' },
+              '50%': { transform: 'rotate(10deg)' },
+            },
+            glowPulse: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 8px rgba(242, 198, 65, 0.4))' },
+              '50%': { filter: 'drop-shadow(0 0 20px rgba(242, 198, 65, 0.9))' },
+            },
+            spinSlow: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            },
+            bounceSlow: {
+              '0%, 100%': { transform: 'translateY(-12%)' },
+              '50%': { transform: 'translateY(0)' },
+            }
+          },
+          animation: {
+            'float': 'floating 3s ease-in-out infinite',
+            'wiggle': 'wiggle 2.5s ease-in-out infinite',
+            'glow-pulse': 'glowPulse 2s ease-in-out infinite',
+            'spin-slow': 'spinSlow 6s linear infinite',
+            'bounce-slow': 'bounceSlow 2.5s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Estilo Glassmorphic Premium de Cristal Tallado */
+    .glass-card {
+      background: rgba(7, 22, 44, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 198, 65, 0.35); /* Borde de oro sutil */
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(111, 178, 220, 0.05);
+    }
+
+    /* Brillos mágicos y Resplandores */
+    .gold-glow {
+      text-shadow: 0 0 10px rgba(242, 198, 65, 0.7), 0 0 20px rgba(242, 198, 65, 0.4);
+    }
+    .blue-glow {
+      text-shadow: 0 0 15px rgba(111, 178, 220, 0.8), 0 0 30px rgba(111, 178, 220, 0.4);
+    }
+    .drop-shadow-gold {
+      filter: drop-shadow(0 0 8px rgba(242, 198, 65, 0.6)) drop-shadow(0 0 15px rgba(242, 198, 65, 0.3));
+    }
+
+    /* Scrollbar minimalista */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030511;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f2c641;
+      border-radius: 10px;
+    }
+
+    /* =========================================================
+       FÍSICA DEL SOBRE REAL Y LA CARTA QUE SALE DESDE ADENTRO
+       ========================================================= */
+    .envelope-wrapper {
+      perspective: 1500px;
+    }
+    .envelope {
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+    /* Animación del sobre entero al abrirse */
+    .envelope.open {
+      transform: translateY(15%) rotateX(-10deg);
+    }
+    
+    /* Solapa superior: Abre y luego se envía hacia atrás */
+    .envelope-flap {
+      transition: transform 0.6s ease-in-out, z-index 0s 0.25s; /* Cambia de z-index a mitad de la animación */
+    }
+    .envelope.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 5; /* Se pone por detrás de la carta una vez abierta */
+    }
+
+    /* Carta: Se desliza hacia arriba DESPUÉS de que abre la solapa */
+    .envelope-letter {
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+    }
+    .envelope.open .envelope-letter {
+      transform: translateY(-60%);
+    }
+
+    /* Flotación para el monumental XV */
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: floating 4s ease-in-out infinite;
+    }
+
+    /* Marco Real de Fotos con Aura Dorada */
+    .royal-frame {
+      position: relative;
+      border: 2px solid #f2c641;
+      box-shadow: 0 0 25px rgba(242, 198, 65, 0.25), inset 0 0 15px rgba(242, 198, 65, 0.2);
+      padding: 8px;
+      background: rgba(3, 5, 17, 0.85);
+    }
+    .royal-frame::before {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px; right: -6px; bottom: -6px;
+      border: 1px solid rgba(242, 198, 65, 0.4);
+      pointer-events: none;
+    }
+
+    /* Revelación Cinematográfica GSAP/Scroll */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+  </style>
+</head>
+<body class="bg-[#030511] text-white font-sans antialiased overflow-x-hidden selection:bg-royalGold selection:text-midnight">
+
+  <!-- ================================================== -->
+  <!-- ESCENARIO PRINCIPAL: CASTILLO DE CUENTO + CAPA AZUL -->
+  <!-- ================================================== -->
+  <div class="fixed inset-0 w-full h-full pointer-events-none z-0">
+    <!-- 1. Video de fondo en loop (con imagen de respaldo detrás por si el video no carga) -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://i.imgur.com/41v6q97.jpeg');"></div>
+      <video
+        class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        autoplay
+        muted
+        loop
+        playsinline
+        disablePictureInPicture
+      >
+        <source src="https://i.imgur.com/BZSlVkQ.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- 2. Capa Azul Transparente al 60% (para que el video no le quite protagonismo a los elementos del frente) -->
+    <div class="absolute inset-0 bg-royalBlue/60"></div>
+    
+    <!-- 3. Canvas de Partículas Mágicas (Polvo de Hadas y Luz) -->
+    <canvas id="magic-canvas" class="w-full h-full block opacity-85"></canvas>
+  </div>
+
+  <!-- Botón de Control de Música Real -->
+  <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+    <button id="sound-btn" class="w-11 h-11 rounded-full bg-midnight/90 border border-royalGold/60 flex items-center justify-center text-royalGold hover:scale-110 active:scale-90 transition-all duration-300 shadow-[0_0_15px_rgba(242,198,65,0.3)]" title="Música del Palacio">
+      <i id="sound-icon" class="fa-solid fa-volume-mute animate-pulse"></i>
+    </button>
+  </div>
+
+  <!-- Reproductor de YouTube oculto (motor de la música de fondo) -->
+  <div class="fixed w-0 h-0 opacity-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div id="yt-music-player"></div>
+  </div>
+
+  <!-- ================================================== -->
+  <!-- PANTALLA INICIAL: EL GRAN SOBRE & MONUMENTAL XV -->
+  <!-- ================================================== -->
+  <div id="intro-screen" class="fixed inset-0 z-40 bg-[#030511] flex flex-col items-center justify-center px-4 overflow-hidden">
+    <!-- Fondo inicial con castillo -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('https://i.imgur.com/41v6q97.jpeg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/80 to-transparent pointer-events-none"></div>
+
+    <div class="text-center mb-2 max-w-lg z-10 px-4 mt-8">
+      <!-- Monumental XV en Letras Romanas de Cristal Azul -->
+      <h1 class="font-royal text-[7.5rem] md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-hielo via-crystalBlue to-royalBlue blue-glow tracking-widest leading-none animate-float">
+        XV
+      </h1>
+      <h2 class="font-royal text-2xl md:text-3xl text-royalGold font-semibold tracking-[0.25em] mt-1 uppercase gold-glow">VALERIA</h2>
+      <p class="font-fairy text-2xl md:text-3xl text-celeste mt-1">"Donde los sueños se hacen eternos"</p>
+    </div>
+
+    <!-- Sobre Real Interactivo (Estructura de capas perfecta) -->
+    <div class="envelope-wrapper w-[320px] h-[200px] md:w-[360px] md:h-[225px] relative z-10 my-8 mx-auto flex items-center justify-center">
+      <div id="physical-envelope" class="envelope w-full h-full bg-[#051021] rounded shadow-2xl relative">
+        
+        <!-- CARTA INTERIOR (Alojada en el medio: z-10) -->
+        <div id="envelope-letter" class="envelope-letter absolute top-2 left-2 right-2 bottom-2 bg-gradient-to-b from-[#fdfefe] to-hielo rounded flex flex-col items-center justify-center p-3 text-slate-800 border border-white/50 z-10">
+          <div class="border-2 border-double border-royalGold/50 w-full h-full p-2 flex flex-col justify-between items-center text-center">
+            <div class="flex flex-col items-center">
+              <i class="fa-solid fa-crown text-royalGold text-sm mb-0.5 animate-glow-pulse"></i>
+              <span class="text-[8px] tracking-[0.3em] font-royal uppercase text-slate-600 font-bold">MENSAJE IMPERIAL</span>
+            </div>
+            
+            <div class="my-auto">
+              <p class="font-fairy text-3xl text-royalBlue select-none leading-none">Mis Quince Años</p>
+              <h2 class="font-royal text-xl text-midnight font-black tracking-widest mt-1 select-none">VALERIA</h2>
+            </div>
+
+            <div class="flex flex-col items-center gap-0.5">
+              <div class="h-[1px] w-10 bg-royalGold/60"></div>
+              <span class="text-[7px] font-medium tracking-[0.2em] text-slate-500 uppercase select-none">1 de Agosto, 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLAPAS FRONTALES (Ocultan la carta: z-20) -->
+        <div class="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded">
+          <!-- Izquierda (Bordes de CSS ajustados para w-320 a w-360) -->
+          <div class="absolute left-0 top-0 w-0 h-0 border-y-[100px] md:border-y-[112.5px] border-y-transparent border-l-[160px] md:border-l-[180px] border-l-[#091c33] drop-shadow-[2px_0_2px_rgba(0,0,0,0.3)]"></div>
+          <!-- Derecha -->
+          <div class="absolute right-0 top-0 w-0 h-0 border-y-[100px] md:border-y-[112.5px] border-y-transparent border-r-[160px] md:border-r-[180px] border-r-[#091c33] drop-shadow-[-2px_0_2px_rgba(0,0,0,0.3)]"></div>
+          <!-- Abajo -->
+          <div class="absolute bottom-0 left-0 w-0 h-0 border-x-[160px] md:border-x-[180px] border-x-transparent border-b-[110px] md:border-b-[125px] border-b-[#0c2442] drop-shadow-[0_-2px_4px_rgba(0,0,0,0.4)]"></div>
+        </div>
+
+        <!-- SOLAPA SUPERIOR (Abre y pivota hacia atrás: z-30 inicial) -->
+        <div id="envelope-flap" class="envelope-flap absolute top-0 left-0 w-0 h-0 border-x-[160px] md:border-x-[180px] border-x-transparent border-t-[105px] md:border-t-[115px] border-t-[#112d52] origin-top z-30 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"></div>
+
+        <!-- Sello de Cristal de la Realeza (z-40) -->
+        <button id="wax-seal" class="absolute top-[100px] md:top-[110px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-crystalBlue via-celeste to-royalBlue rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(0,0,0,0.6)] hover:scale-110 active:scale-95 transition-all duration-300 z-40 border border-white/60 cursor-pointer group">
+          <div class="absolute inset-1 rounded-full border border-dashed border-white/40 flex items-center justify-center">
+            <span class="font-royal text-2xl text-white font-extrabold tracking-tighter filter drop-shadow-[0_2px_3px_rgba(0,0,0,0.5)] group-hover:scale-110 transition-transform">V</span>
+          </div>
+          <div class="absolute inset-0 bg-white/20 rounded-full animate-ping pointer-events-none"></div>
+        </button>
+
+      </div>
+    </div>
+    
+    <!-- Botones de entrada con/sin música -->
+    <div class="z-10 flex flex-col sm:flex-row gap-3 mt-4 items-center">
+      <button id="btn-enter-music" class="px-6 py-3 bg-gradient-to-r from-royalGold via-amber-400 to-royalGold text-midnight font-royal text-[11px] font-bold tracking-[0.2em] rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+        <i class="fa-solid fa-music"></i> ENTRAR CON MÚSICA
+      </button>
+      <button id="btn-enter-silent" class="px-6 py-3 bg-transparent border border-royalGold/60 text-royalGold font-royal text-[11px] font-bold tracking-[0.2em] rounded-full hover:bg-royalGold/10 active:scale-95 transition-all flex items-center gap-2">
+        <i class="fa-solid fa-volume-xmark"></i> SIN MÚSICA
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================================================== -->
+  <!-- CONTENIDO PRINCIPAL: SECCIONES COMPACTAS Y UNIDAS -->
+  <!-- ================================================== -->
+  <main id="main-content" class="relative hidden w-full z-10 flex flex-col items-center pb-20 pt-10">
+
+    <!-- SECCIÓN 1: INVITACIÓN -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-xl w-full rounded-3xl p-6 md:p-8 border-double border-[3px] border-royalGold/50 text-center">
+        <div class="flex flex-col items-center">
+          <div class="relative mb-2">
+            <!-- Icono animado flotando -->
+            <i class="fa-solid fa-crown text-royalGold text-3xl animate-float"></i>
+            <div class="absolute -inset-2 bg-royalGold/20 rounded-full blur-md"></div>
+          </div>
+          
+          <h3 class="font-royal text-royalGold tracking-[0.25em] text-[10px] uppercase mb-1">Te invito a celebrar mis 15 años</h3>
+          <h1 class="font-royal text-4xl md:text-5xl font-bold tracking-widest text-white mt-1 gold-glow">VALERIA</h1>
+          
+          <div class="w-20 h-[1px] bg-gradient-to-r from-transparent via-royalGold to-transparent my-4"></div>
+          
+          <p class="text-[13px] md:text-sm text-slate-200 font-light max-w-md leading-relaxed tracking-wider">
+            "Como en los cuentos donde los sueños se hacen realidad, ha llegado el momento de recorrer nuestro castillo hacia una noche mágica de gala, alegría y recuerdos inolvidables junto a mis seres queridos."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <!-- Zapatilla tratada con filtros para parecer cristal celeste -->
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 2: BANNER PRINCIPAL (FOTO INTEGRADA) -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="max-w-xl w-full text-center">
+        <div class="flex gap-4 justify-center items-center mb-3">
+          <span class="h-[1px] w-10 bg-royalGold/50"></span>
+          <span class="font-royal text-royalGold tracking-[0.25em] text-[10px] uppercase font-bold gold-glow">MIS 15 AÑOS</span>
+          <span class="h-[1px] w-10 bg-royalGold/50"></span>
+        </div>
+
+        <!-- Fotografía de Valeria (coloca aquí tu foto: valeria.jpg) -->
+        <div class="w-full max-w-[320px] mx-auto mb-4">
+          <div class="royal-frame rounded-2xl overflow-hidden group">
+            <img src="https://i.imgur.com/41v6q97.jpeg" 
+                 alt="Valeria Princesa" 
+                 class="w-full h-[400px] object-cover rounded-xl transition-transform duration-1000 group-hover:scale-105">
+          </div>
+        </div>
+
+        <p class="font-fairy text-3xl md:text-4xl text-celeste filter drop-shadow">"Un sueño es un deseo del corazón..."</p>
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 3: LA FECHA DE LA MAGIA & CUENTA REGRESIVA JUNTAS (Más compacto) -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 border-double border-[3px] border-royalGold/50 text-center">
+        
+        <!-- Fecha -->
+        <div class="flex flex-col items-center mb-6">
+          <!-- Icono animado de varita -->
+          <i class="fa-solid fa-wand-magic-sparkles text-royalGold text-2xl mb-2 animate-wiggle"></i>
+          <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-4">La Magia Comienza</h2>
+          
+          <div class="flex flex-col items-center gap-1 mb-4">
+            <div class="bg-royalBlue/30 border border-royalGold/40 rounded-2xl px-8 py-3 flex items-baseline gap-3">
+              <span class="font-royal text-5xl font-black text-royalGold gold-glow leading-none">01</span>
+              <div class="flex flex-col items-start">
+                <span class="font-royal text-xl font-bold text-white tracking-widest leading-none">AGO</span>
+                <span class="font-royal text-sm text-celeste tracking-widest leading-none">2026</span>
+              </div>
+            </div>
+            <span class="text-[9px] text-slate-400 uppercase tracking-widest">Sábado</span>
+          </div>
+          
+          <div class="bg-royalBlue/30 border border-royalGold/30 rounded-xl p-3 w-full max-w-[240px]">
+            <span class="text-[8px] font-bold tracking-widest text-royalGold uppercase block mb-1">Recepción Real</span>
+            <span class="font-royal text-sm text-white font-medium">7:00 PM a 1:00 AM</span>
+          </div>
+        </div>
+
+        <div class="w-full h-[1px] bg-royalGold/20 my-4"></div>
+
+        <!-- Reloj y Contadores -->
+        <div class="flex flex-col items-center">
+          <h2 class="font-royal text-[11px] tracking-[0.2em] text-hielo uppercase mb-3">Falta muy poco para las doce</h2>
+          
+          <div class="grid grid-cols-4 gap-2 w-full max-w-sm">
+            <div class="bg-[#02040a]/80 border border-royalGold/30 rounded-lg p-2.5 flex flex-col justify-center shadow-inner">
+              <span id="days" class="font-royal text-xl text-royalGold font-bold">00</span>
+              <span class="text-[7px] font-medium text-slate-300 uppercase tracking-widest mt-1">Días</span>
+            </div>
+            <div class="bg-[#02040a]/80 border border-royalGold/30 rounded-lg p-2.5 flex flex-col justify-center shadow-inner">
+              <span id="hours" class="font-royal text-xl text-royalGold font-bold">00</span>
+              <span class="text-[7px] font-medium text-slate-300 uppercase tracking-widest mt-1">Hrs</span>
+            </div>
+            <div class="bg-[#02040a]/80 border border-royalGold/30 rounded-lg p-2.5 flex flex-col justify-center shadow-inner">
+              <span id="minutes" class="font-royal text-xl text-royalGold font-bold">00</span>
+              <span class="text-[7px] font-medium text-slate-300 uppercase tracking-widest mt-1">Min</span>
+            </div>
+            <div class="bg-[#02040a]/80 border border-royalGold/30 rounded-lg p-2.5 flex flex-col justify-center shadow-inner">
+              <span id="seconds" class="font-royal text-xl text-royalGold font-bold">00</span>
+              <span class="text-[7px] font-medium text-slate-300 uppercase tracking-widest mt-1">Seg</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 4: CALENDARIO -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 text-center border-double border-[3px] border-royalGold/50">
+        <div class="flex flex-col items-center">
+          <!-- Icono animado de calendario -->
+          <i class="fa-solid fa-calendar-days text-royalGold text-2xl mb-2 animate-bounce-slow"></i>
+          <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-4">Reserva esta fecha</h2>
+          
+          <!-- Calendario Agosto 2026 -->
+          <div class="w-full max-w-[260px] bg-[#030511]/95 border border-royalGold/40 rounded-2xl p-4 shadow-xl mb-5">
+            <div class="flex justify-between items-center mb-3 border-b border-royalGold/20 pb-2">
+              <span class="font-royal text-[11px] text-royalGold tracking-[0.1em] uppercase font-bold">Agosto 2026</span>
+              <span class="text-[8px] text-celeste uppercase tracking-wider font-light">Bogotá, COL</span>
+            </div>
+            
+            <div class="grid grid-cols-7 gap-1 text-[8px] text-slate-400 font-bold mb-2">
+              <span>DO</span><span>LU</span><span>MA</span><span>MI</span><span>JU</span><span>VI</span><span class="text-royalGold">SÁ</span>
+            </div>
+            
+            <div class="grid grid-cols-7 gap-1 text-[11px]">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+              <!-- Sábado 1 de Agosto Destacado -->
+              <div class="calendar-day bg-gradient-to-br from-royalGold via-amber-400 to-yellow-600 text-midnight font-bold relative animate-pulse ring-2 ring-royalGold/50 shadow-[0_0_10px_rgba(242,198,65,0.6)]">
+                1
+              </div>
+              
+              <span class="calendar-day text-slate-400">2</span>
+              <span class="calendar-day text-slate-400">3</span>
+              <span class="calendar-day text-slate-400">4</span>
+              <span class="calendar-day text-slate-400">5</span>
+              <span class="calendar-day text-slate-400">6</span>
+              <span class="calendar-day text-slate-400">7</span>
+              <span class="calendar-day text-slate-400">8</span>
+              <span class="calendar-day text-slate-400">9</span>
+              <span class="calendar-day text-slate-400">10</span>
+              <span class="calendar-day text-slate-400">11</span>
+              <span class="calendar-day text-slate-400">12</span>
+              <span class="calendar-day text-slate-400">13</span>
+              <span class="calendar-day text-slate-400">14</span>
+              <span class="calendar-day text-slate-400">15</span>
+              <span class="calendar-day text-slate-400">16</span>
+              <span class="calendar-day text-slate-400">17</span>
+              <span class="calendar-day text-slate-400">18</span>
+              <span class="calendar-day text-slate-400">19</span>
+              <span class="calendar-day text-slate-400">20</span>
+              <span class="calendar-day text-slate-400">21</span>
+              <span class="calendar-day text-slate-400">22</span>
+              <span class="calendar-day text-slate-400">23</span>
+              <span class="calendar-day text-slate-400">24</span>
+              <span class="calendar-day text-slate-400">25</span>
+              <span class="calendar-day text-slate-400">26</span>
+              <span class="calendar-day text-slate-400">27</span>
+              <span class="calendar-day text-slate-400">28</span>
+              <span class="calendar-day text-slate-400">29</span>
+              <span class="calendar-day text-slate-400">30</span>
+              <span class="calendar-day text-slate-400">31</span>
+            </div>
+          </div>
+
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+A%C3%B1os+-+Valeria+%F0%9F%91%B8%E2%9C%A8&dates=20260801T190000/20260802T010000&details=%C2%A1Acompa%C3%B1ame+a+celebrar+mis+15+A%C3%B1os!+%F0%9F%8F%B0%E2%9C%A8+C%C3%B3digo+de+vestuario:+Formal.&location=Sal%C3%B3n+Comunal+Barrio+Real+-+Cra.+73a+%2364j37,+Bogot%C3%A1" 
+             target="_blank" 
+             class="px-6 py-3 bg-gradient-to-r from-royalGold to-amber-500 text-midnight font-royal font-bold text-[10px] tracking-wider rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group">
+            <i class="fa-brands fa-google group-hover:animate-bounce"></i>
+            AGREGAR A GOOGLE CALENDAR
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 5: UBICACIÓN Y CÓDIGO DE VESTIMENTA (Compactos en una sola vista visual) -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 border-double border-[3px] border-royalGold/50">
+        
+        <!-- Ubicación -->
+        <div class="flex flex-col items-center mb-8">
+          <!-- Icono de mapa animado -->
+          <i class="fa-solid fa-map-location-dot text-royalGold text-2xl mb-2 animate-bounce-slow"></i>
+          <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-1">Mi Castillo Te Espera</h2>
+          <p class="font-fairy text-2xl text-celeste mb-3">Salón Comunal Barrio Real</p>
+          
+          <div class="text-center mb-4 space-y-0.5">
+            <span class="font-medium text-[13px] text-white tracking-wider block">Cra. 73a #64j37</span>
+            <span class="text-[11px] text-slate-300 block">Bogotá, Colombia</span>
+          </div>
+
+          <a href="https://www.google.com/maps/search/?api=1&query=Sal%C3%B3n+Comunal+Barrio+Real+Cra.+73a+%2364j37+Bogota" target="_blank" class="w-[80%] py-2.5 bg-gradient-to-r from-royalGold via-amber-400 to-royalGold text-midnight font-royal text-[10px] font-bold tracking-[0.2em] rounded-full hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2 group">
+            <i class="fa-solid fa-map group-hover:animate-wiggle"></i> VER EN GOOGLE MAPS
+          </a>
+        </div>
+
+        <div class="w-full h-[1px] bg-royalGold/20 my-4"></div>
+
+        <!-- Código de Vestimenta -->
+        <div class="flex flex-col items-center">
+          <!-- Icono de traje animado -->
+          <i class="fa-solid fa-user-tie text-royalGold text-xl mb-2 animate-wiggle"></i>
+          <h2 class="font-royal text-[13px] tracking-[0.2em] text-hielo uppercase mb-4">Código de Vestimenta</h2>
+          
+          <div class="flex justify-center gap-4 w-full text-center">
+            <div class="bg-[#0b1b33]/80 border border-royalGold/30 rounded-xl p-3 w-1/2 shadow-inner hover:scale-105 transition-transform duration-300">
+              <span class="text-2xl block mb-1">👔</span>
+              <span class="font-royal text-[10px] text-royalGold block tracking-widest uppercase mb-0.5">Traje Formal</span>
+              <span class="text-[9px] text-slate-300 leading-tight">Caballeros</span>
+            </div>
+            <div class="bg-[#0b1b33]/80 border border-royalGold/30 rounded-xl p-3 w-1/2 shadow-inner hover:scale-105 transition-transform duration-300">
+              <span class="text-2xl block mb-1">👗</span>
+              <span class="font-royal text-[10px] text-royalGold block tracking-widest uppercase mb-0.5">Traje Formal</span>
+              <span class="text-[9px] text-slate-300 leading-tight">Damas</span>
+            </div>
+          </div>
+
+          <!-- Colores Reservados: 3 tonos de azul -->
+          <div class="mt-5 w-full">
+            <p class="text-[9px] text-celeste tracking-[0.2em] uppercase font-semibold mb-3 text-center">Color reservado para la quinceañera</p>
+            <div class="flex justify-center gap-5">
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-10 h-10 rounded-full border-2 border-white/30 shadow-[0_0_14px_rgba(135,206,235,0.7)]" style="background:#87CEEB;"></div>
+                <span class="text-[8px] text-slate-300 tracking-wide text-center">Azul<br>Cielo</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-10 h-10 rounded-full border-2 border-white/30 shadow-[0_0_14px_rgba(26,74,117,0.9)]" style="background:#1a4a75;"></div>
+                <span class="text-[8px] text-slate-300 tracking-wide text-center">Azul<br>Oscuro</span>
+              </div>
+              <div class="flex flex-col items-center gap-1.5">
+                <div class="w-10 h-10 rounded-full border-2 border-white/30 shadow-[0_0_14px_rgba(176,221,244,0.8)]" style="background:#b0ddf4;"></div>
+                <span class="text-[8px] text-slate-300 tracking-wide text-center">Azul<br>Claro</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 6: GALERÍA DE MOMENTOS ESPECIALES (Diseño Editorial Asimétrico Premium) -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-xl w-full rounded-3xl p-5 md:p-8 text-center border-double border-[3px] border-royalGold/50">
+        <div class="flex flex-col items-center">
+          <!-- Icono de galería animado -->
+          <i class="fa-solid fa-images text-royalGold text-2xl mb-1 animate-glow-pulse"></i>
+          <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-0.5">Momentos Especiales</h2>
+          <p class="font-fairy text-2xl text-celeste mb-5">Álbum de Recuerdos</p>
+          
+          <!-- Cuadrícula editorial premium y asimétrica de revista -->
+          <div class="grid grid-cols-2 gap-2.5 w-full">
+            
+            <!-- Foto 1 -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative col-span-2 aspect-[16/9] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/ZZU8hJg.jpeg" 
+                   alt="Recuerdo 1" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+            </div>
+            
+            <!-- Foto 2 -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/ZG6GJnC.jpeg" 
+                   alt="Recuerdo 2" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+            </div>
+
+            <!-- Foto 3 -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/Hcs83UV.jpeg" 
+                   alt="Recuerdo 3" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+            </div>
+
+            <!-- Foto 4 -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative col-span-2 aspect-[21/9] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/yuxxgkz.jpeg" 
+                   alt="Recuerdo 4" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN 7: CONFIRMACIÓN Y DESPEDIDA -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card max-w-lg w-full rounded-3xl p-6 md:p-8 border-double border-[3px] border-royalGold/50">
+        
+        <!-- RSVP -->
+        <div class="flex flex-col items-center mb-6">
+          <!-- Icono pluma animada -->
+          <i class="fa-solid fa-feather-pointed text-royalGold text-2xl mb-2 animate-wiggle"></i>
+          <h2 class="font-royal text-lg tracking-[0.15em] text-royalGold uppercase mb-1">Confirma tu Asistencia</h2>
+          <p class="text-[11px] text-slate-300 leading-relaxed mb-4 font-light text-center">"Tu presencia hará esta noche aún más especial."</p>
+
+          <form id="rsvp-form" class="w-full space-y-3">
+            <div class="space-y-1">
+              <label class="text-[9px] tracking-widest text-celeste uppercase block text-left font-semibold">Nombre del Invitado:</label>
+              <input type="text" id="guest-name" required placeholder="Escribe tu nombre completo" class="w-full py-2.5 px-4 bg-[#02040a]/80 border border-royalGold/40 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-royalGold transition-all">
+            </div>
+
+            <div class="space-y-1">
+              <label class="text-[9px] tracking-widest text-celeste uppercase block text-left font-semibold">Mensaje para Valeria:</label>
+              <textarea id="guest-message" placeholder="Déjale tus mejores deseos..." rows="2" class="w-full py-2.5 px-4 bg-[#02040a]/80 border border-royalGold/40 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-royalGold resize-none transition-all"></textarea>
+            </div>
+
+            <!-- Botón de confirmación real a WhatsApp -->
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-royalGold via-amber-400 to-royalGold text-midnight font-royal text-[11px] font-bold tracking-[0.2em] rounded-full hover:scale-105 active:scale-95 transition-all shadow-xl flex items-center justify-center gap-2 mt-2 group">
+              <i class="fa-brands fa-whatsapp text-sm group-hover:animate-pulse"></i> ENVIAR CONFIRMACIÓN
+            </button>
+          </form>
+        </div>
+
+        <div class="w-full h-[1px] bg-royalGold/20 my-4"></div>
+
+        <!-- Despedida -->
+        <div class="flex flex-col items-center pt-2">
+          <h2 class="font-fairy text-4xl text-celeste mb-2">¡Muchos Éxitos!</h2>
+          <p class="text-[11px] text-slate-300 font-light leading-relaxed tracking-wider mb-4 text-center">
+            "Gracias por acompañarme en esta noche mágica llena de sueños, magia y felicidad."
+          </p>
+          <div class="text-[10px] tracking-widest text-royalGold uppercase">
+            <span class="block font-bold">VALERIA</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MEMORY GALLERY LIGHTBOX FRAME -->
+  <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-[#030511]/95 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeLightbox()">
+    <div class="relative max-w-3xl w-full flex flex-col items-center animate-fade-in">
+      <button class="absolute -top-10 right-0 text-white text-3xl hover:text-royalGold transition-colors" onclick="closeLightbox()">&times;</button>
+      <div class="royal-frame rounded-2xl overflow-hidden max-h-[80vh] w-auto">
+        <img id="lightbox-img" src="" alt="Vista en Detalle" class="object-contain max-h-[75vh] w-full rounded-xl">
+      </div>
+    </div>
+  </div>
+
+  <!-- RSVP CONFIRMATION SUCCESS MODAL -->
+  <div id="rsvp-modal" class="fixed inset-0 z-50 bg-[#030511]/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="glass-card max-w-sm w-full rounded-2xl p-6 border border-royalGold text-center">
+      <i class="fa-regular fa-circle-check text-5xl text-emerald-400 mb-3 drop-shadow-gold animate-float"></i>
+      <h3 class="font-royal text-lg text-royalGold tracking-wider mb-2">¡Mensaje Preparado!</h3>
+      <p id="modal-status-msg" class="text-xs text-slate-300 leading-relaxed mb-6">
+        Se abrirá WhatsApp para que envíes formalmente el mensaje de confirmación a Valeria.
+      </p>
+      <button id="modal-whatsapp-link" class="w-full py-3 bg-gradient-to-r from-royalGold to-amber-500 text-midnight font-royal font-bold text-xs tracking-widest rounded-full shadow-lg">
+        CONTINUAR A WHATSAPP
+      </button>
+      <button onclick="document.getElementById('rsvp-modal').classList.replace('flex','hidden')" class="mt-4 text-[10px] text-slate-400 underline">Cancelar</button>
+    </div>
+  </div>
+
+
+  <!-- ================================================== -->
+  <!-- SISTEMA DE ANIMACIÓN Y RENDERIZADO EN TIEMPO REAL -->
+  <!-- ================================================== -->
+  <script>
+    // --- MÚSICA DE FONDO (YouTube IFrame API) ---
+    // No se puede usar <audio autoplay> porque los navegadores lo bloquean.
+    // En su lugar, cargamos un reproductor de YouTube oculto y lo arrancamos
+    // justo cuando el usuario interactúa por primera vez (clic en el sello),
+    // lo cual cumple con la política de "interacción del usuario" de los navegadores.
+    let ytPlayer = null;
+    let isSoundMuted = true;
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('yt-music-player', {
+        height: '0',
+        width: '0',
+        videoId: 'AIp_9eAt2Cc',
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: 'AIp_9eAt2Cc',
+          playsinline: 1
+        },
+        events: {
+          onReady: (event) => {
+            event.target.setVolume(70);
+          }
+        }
+      });
+    }
+
+    const soundBtn = document.getElementById('sound-btn');
+    const soundIcon = document.getElementById('sound-icon');
+
+    function setSoundUI(muted) {
+      isSoundMuted = muted;
+      soundIcon.className = muted
+        ? "fa-solid fa-volume-mute animate-pulse"
+        : "fa-solid fa-volume-up animate-wiggle";
+    }
+
+    soundBtn.addEventListener('click', () => {
+      if (!ytPlayer || typeof ytPlayer.isMuted !== 'function') return;
+      if (ytPlayer.isMuted() || isSoundMuted) {
+        ytPlayer.unMute();
+        ytPlayer.playVideo();
+        setSoundUI(false);
+      } else {
+        ytPlayer.mute();
+        setSoundUI(true);
+      }
+    });
+
+    // --- GSAP SCROLL REVEAL SUAVE PARA SECCIONES UNIDAS ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initScrollReveals() {
+      const revealItems = document.querySelectorAll('.scroll-reveal');
+      revealItems.forEach((item, i) => {
+        gsap.to(item, {
+          scrollTrigger: {
+            trigger: item,
+            start: "top 85%", // Inicia la animación cuando la sección asoma en pantalla
+            toggleActions: "play none none reverse"
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out"
+        });
+      });
+    }
+
+    // --- SISTEMA DE PARTÍCULAS MÁGICAS (CANVAS) ---
+    const canvas = document.getElementById('magic-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const particleCount = 110;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        speedY: -0.3 - Math.random() * 1.8,
+        speedX: (Math.random() - 0.5) * 1.2,
+        size: Math.random() * 2.8 + 0.6,
+        opacity: Math.random() * 0.7 + 0.3,
+        twinkleSpeed: 0.02 + Math.random() * 0.05,
+        twinklePhase: Math.random() * Math.PI * 2,
+        color: Math.random() > 0.25 ? '#f2c641' : '#b0ddf4'
+      });
+    }
+
+    function drawScenery() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Animación de polvo de hadas
+      for (let p of particles) {
+        p.y += p.speedY;
+        p.x += p.speedX;
+        p.twinklePhase += p.twinkleSpeed;
+
+        if (p.y < -10) {
+          p.y = height + 10;
+          p.x = Math.random() * width;
+        }
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+
+        const twinkle = 0.5 + Math.sin(p.twinklePhase) * 0.5;
+        const liveSize = p.size * (0.7 + twinkle * 0.6);
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, liveSize, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity * (0.6 + twinkle * 0.4);
+        ctx.shadowBlur = liveSize * 4;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      }
+
+      requestAnimationFrame(drawScenery);
+    }
+
+    window.onload = function() {
+      drawScenery();
+    };
+
+    // --- CONTROL DE APERTURA DEL SOBRE REAL ---
+    const introScreen = document.getElementById('intro-screen');
+    const physicalEnvelope = document.getElementById('physical-envelope');
+    const waxSealBtn = document.getElementById('wax-seal');
+    const mainContent = document.getElementById('main-content');
+    const btnEnterMusic = document.getElementById('btn-enter-music');
+    const btnEnterSilent = document.getElementById('btn-enter-silent');
+
+    function openEnvelope(withMusic) {
+      // Arranca música si eligió con música
+      if (withMusic && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+        ytPlayer.unMute();
+        ytPlayer.playVideo();
+        setSoundUI(false);
+      } else {
+        setSoundUI(true);
+      }
+
+      // Estallido de partículas en el sello
+      for (let k = 0; k < 40; k++) {
+        particles.push({
+          x: width / 2 + (Math.random() - 0.5) * 50,
+          y: height / 2 + (Math.random() - 0.5) * 50,
+          speedY: (Math.random() - 0.5) * 8,
+          speedX: (Math.random() - 0.5) * 8,
+          size: Math.random() * 4 + 1,
+          opacity: 1,
+          color: '#f2c641',
+          twinkleSpeed: 0.03,
+          twinklePhase: 0
+        });
+      }
+
+      // Activa las clases CSS de transformación en cascada (Sobre -> Solapa -> Carta)
+      physicalEnvelope.classList.add('open');
+
+      // Una vez finaliza toda la magia del sobre, la cámara entra al castillo
+      setTimeout(() => {
+        gsap.to(introScreen, {
+          opacity: 0,
+          scale: 1.15,
+          duration: 1.4,
+          ease: "power2.out",
+          onComplete: () => {
+            introScreen.style.display = 'none';
+            mainContent.style.opacity = 0;
+            mainContent.classList.remove('hidden');
+            gsap.to(mainContent, {
+              opacity: 1,
+              duration: 1.2,
+              ease: "power1.out",
+              onComplete: () => { initScrollReveals(); }
+            });
+          }
+        });
+      }, 2300);
+    }
+
+    // Sello también abre (sin música por defecto al clic directo)
+    waxSealBtn.addEventListener('click', () => openEnvelope(false));
+    btnEnterMusic.addEventListener('click', () => openEnvelope(true));
+    btnEnterSilent.addEventListener('click', () => openEnvelope(false));
+
+    // --- RELOJ CUENTA REGRESIVA: 1 DE AGOSTO DE 2026 ---
+    const targetDate = new Date('August 1, 2026 19:00:00 GMT-0500').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+      document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+      if (difference < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+      }
+    }
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- FORMULARIO DE CONFIRMACIÓN A WHATSAPP ---
+    const rsvpForm = document.getElementById('rsvp-form');
+    const rsvpModal = document.getElementById('rsvp-modal');
+    const modalConfirmBtn = document.getElementById('modal-whatsapp-link');
+
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const guestName = document.getElementById('guest-name').value.trim();
+      const guestMessage = document.getElementById('guest-message').value.trim();
+      const additionalNote = guestMessage ? `\n💬 *Mensaje:* "${guestMessage}"` : '';
+
+      const rsvpMessageText = `¡Hola Valeria! ✨👑\n\nQuiero confirmar mi asistencia a tu mágica fiesta de Quince Años:\n\n👤 *Nombre del Invitado:* ${guestName}\n💌 *Asistencia:* Confirmada${additionalNote}\n\n¡Tengo muchas ganas de festejar este gran día! 🌌`;
+
+      const encodedMessage = encodeURIComponent(rsvpMessageText);
+      const adminPhoneNumber = "573195607767"; 
+      const whatsappURL = `https://api.whatsapp.com/send?phone=${adminPhoneNumber}&text=${encodedMessage}`;
+
+      document.getElementById('modal-status-msg').innerText = `Hola ${guestName}, hemos generado la confirmación para Valeria. Serás dirigido a WhatsApp para enviarla formalmente.`;
+
+      rsvpModal.classList.remove('hidden');
+      rsvpModal.classList.add('flex');
+
+      modalConfirmBtn.onclick = () => {
+        window.open(whatsappURL, '_blank');
+        rsvpModal.classList.add('hidden');
+        rsvpModal.classList.remove('flex');
+        rsvpForm.reset();
+      };
+    });
+
+    // --- LIGHTBOX DE LA GALERÍA ---
+    const lightbox = document.getElementById('gallery-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(element) {
+      const img = element.querySelector('img');
+      lightboxImg.src = img.src;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+    }
+  </script>
+</body>
+</html>
