@@ -170,6 +170,26 @@
       opacity: 0;
       transform: translateY(30px);
     }
+
+    /* Sobres cayendo en la sección lluvia de sobres */
+    @keyframes falling1 {
+      0%   { transform: translateY(-30px) rotate(-10deg); opacity: 0.2; }
+      50%  { opacity: 0.25; }
+      100% { transform: translateY(110vh) rotate(15deg); opacity: 0; }
+    }
+    @keyframes falling2 {
+      0%   { transform: translateY(-30px) rotate(8deg); opacity: 0.15; }
+      50%  { opacity: 0.2; }
+      100% { transform: translateY(110vh) rotate(-12deg); opacity: 0; }
+    }
+    @keyframes falling3 {
+      0%   { transform: translateY(-30px) rotate(-5deg); opacity: 0.2; }
+      50%  { opacity: 0.18; }
+      100% { transform: translateY(110vh) rotate(20deg); opacity: 0; }
+    }
+    .animate-falling-1 { animation: falling1 7s linear infinite; }
+    .animate-falling-2 { animation: falling2 9s linear infinite 1.5s; }
+    .animate-falling-3 { animation: falling3 8s linear infinite 3s; }
   </style>
 </head>
 <body class="bg-[#030511] text-white font-sans antialiased overflow-x-hidden selection:bg-royalGold selection:text-midnight">
@@ -608,35 +628,112 @@
           <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-0.5">Momentos Especiales</h2>
           <p class="font-fairy text-2xl text-celeste mb-5">Álbum de Recuerdos</p>
           
-          <!-- Cuadrícula editorial premium y asimétrica de revista -->
+          <!-- Cuadrícula de galería con las 6 fotos -->
           <div class="grid grid-cols-2 gap-2.5 w-full">
             
-            <!-- Foto 1 -->
+            <!-- Foto 1: panorámica -->
             <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative col-span-2 aspect-[16/9] shadow-lg" onclick="openLightbox(this)">
-              <img src="https://i.imgur.com/ZZU8hJg.jpeg" 
-                   alt="Recuerdo 1" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <img src="https://i.imgur.com/ZZU8hJg.jpeg" alt="Recuerdo 1" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
             </div>
             
             <!-- Foto 2 -->
             <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
-              <img src="https://i.imgur.com/ZG6GJnC.jpeg" 
-                   alt="Recuerdo 2" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <img src="https://i.imgur.com/ZG6GJnC.jpeg" alt="Recuerdo 2" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
             </div>
 
             <!-- Foto 3 -->
             <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
-              <img src="https://i.imgur.com/Hcs83UV.jpeg" 
-                   alt="Recuerdo 3" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <img src="https://i.imgur.com/Hcs83UV.jpeg" alt="Recuerdo 3" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
             </div>
 
-            <!-- Foto 4 -->
+            <!-- Foto 4 (nueva) -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/IbDQu2e.jpeg" alt="Recuerdo 4" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
+            </div>
+
+            <!-- Foto 5 (nueva) -->
+            <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative aspect-[4/5] shadow-lg" onclick="openLightbox(this)">
+              <img src="https://i.imgur.com/ub81xxu.jpeg" alt="Recuerdo 5" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
+            </div>
+
+            <!-- Foto 6: panorámica -->
             <div class="royal-frame rounded-xl overflow-hidden cursor-pointer group relative col-span-2 aspect-[21/9] shadow-lg" onclick="openLightbox(this)">
-              <img src="https://i.imgur.com/yuxxgkz.jpeg" 
-                   alt="Recuerdo 4" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <img src="https://i.imgur.com/yuxxgkz.jpeg" alt="Recuerdo 6" class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-all duration-700">
+              <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"><i class="fa-solid fa-expand text-royalGold text-xl"></i></div>
             </div>
             
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- SEPARADOR DE SECCIÓN: ZAPATILLA DE CRISTAL -->
+    <div class="scroll-reveal flex items-center justify-center py-3 w-full max-w-md px-6">
+      <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent via-royalGold/80 to-royalGold"></div>
+      <div class="mx-4 flex items-center justify-center gap-2 animate-float">
+        <span class="text-sm text-crystalBlue animate-spin-slow">✨</span>
+        <div class="relative">
+           <span class="text-4xl filter drop-shadow-[0_0_12px_#b0ddf4] hue-rotate-[200deg] brightness-[1.8] contrast-[1.2] inline-block transform -scale-x-100">👠</span>
+           <div class="absolute inset-0 bg-white/20 rounded-full blur-[4px] animate-pulse pointer-events-none"></div>
+        </div>
+        <span class="text-sm text-crystalBlue animate-spin-slow" style="animation-delay: 0.5s;">✨</span>
+      </div>
+      <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent via-royalGold/80 to-royalGold"></div>
+    </div>
+
+    <!-- SECCIÓN: LLUVIA DE SOBRES -->
+    <section class="scroll-reveal w-full px-4 py-6 flex flex-col items-center justify-center">
+      <div class="glass-card w-full rounded-3xl p-6 md:p-8 border-double border-[3px] border-royalGold/50 text-center overflow-hidden relative">
+
+        <!-- Sobres animados cayendo de fondo -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <span class="absolute text-2xl opacity-20 animate-falling-1" style="left:8%;top:-10%;">💌</span>
+          <span class="absolute text-xl opacity-15 animate-falling-2" style="left:22%;top:-20%;">💌</span>
+          <span class="absolute text-3xl opacity-20 animate-falling-3" style="left:40%;top:-5%;">💌</span>
+          <span class="absolute text-xl opacity-15 animate-falling-1" style="left:60%;top:-15%;">💌</span>
+          <span class="absolute text-2xl opacity-20 animate-falling-2" style="left:78%;top:-8%;">💌</span>
+          <span class="absolute text-lg opacity-10 animate-falling-3" style="left:90%;top:-18%;">💌</span>
+        </div>
+
+        <div class="relative z-10 flex flex-col items-center">
+          <!-- Ícono principal -->
+          <div class="relative mb-3">
+            <span class="text-5xl animate-float inline-block">💌</span>
+            <div class="absolute -inset-3 bg-royalGold/10 rounded-full blur-lg"></div>
+          </div>
+
+          <h2 class="font-royal text-lg tracking-[0.2em] text-royalGold uppercase mb-1 gold-glow">Mesa de Regalos</h2>
+          <p class="font-fairy text-3xl text-celeste mb-3">Lluvia de Sobres</p>
+
+          <div class="w-20 h-[1px] bg-gradient-to-r from-transparent via-royalGold to-transparent mb-4"></div>
+
+          <p class="text-[12px] text-slate-200 font-light leading-relaxed tracking-wider max-w-sm mb-5">
+            "Si deseas hacerme un regalo, tu cariño expresado en un sobrecito será el mejor presente para este momento tan especial de mi vida. ¡Con eso me haces muy feliz! 💛"
+          </p>
+
+          <!-- Caja decorativa de sobre -->
+          <div class="w-full max-w-xs bg-[#02040a]/70 border border-royalGold/30 rounded-2xl p-5 flex flex-col items-center gap-2 shadow-inner mb-4">
+            <span class="text-4xl mb-1">🎀</span>
+            <span class="font-royal text-[10px] tracking-[0.25em] text-royalGold uppercase font-bold">Mesa de sobres</span>
+            <span class="text-[11px] text-slate-300 leading-snug text-center">Disponible durante la celebración en el salón. Podrás encontrarla decorada con mucho amor 💙</span>
+          </div>
+
+          <!-- Nota opcional de Nequi -->
+          <div class="w-full max-w-xs bg-crystalBlue/10 border border-crystalBlue/30 rounded-xl px-4 py-3 flex items-center gap-3">
+            <span class="text-2xl shrink-0">📱</span>
+            <div class="text-left">
+              <span class="font-royal text-[9px] text-royalGold tracking-widest uppercase block mb-0.5">También por Nequi</span>
+              <span class="text-[11px] text-white font-semibold tracking-wider">+57 319 425 3728</span>
+              <span class="text-[9px] text-slate-400 block">Valeria</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -685,14 +782,20 @@
 
         <div class="w-full h-[1px] bg-royalGold/20 my-4"></div>
 
-        <!-- Despedida -->
-        <div class="flex flex-col items-center pt-2">
-          <h2 class="font-fairy text-4xl text-celeste mb-2">¡Muchos Éxitos!</h2>
-          <p class="text-[11px] text-slate-300 font-light leading-relaxed tracking-wider mb-4 text-center">
-            "Gracias por acompañarme en esta noche mágica llena de sueños, magia y felicidad."
+        <!-- Despedida emotiva con bendiciones -->
+        <div class="flex flex-col items-center pt-2 text-center">
+          <i class="fa-solid fa-hands-praying text-royalGold text-2xl mb-3 animate-float"></i>
+          <h2 class="font-fairy text-4xl text-celeste mb-3">¡Que Dios te bendiga siempre!</h2>
+          <p class="text-[12px] text-slate-200 font-light leading-relaxed tracking-wider mb-3 max-w-sm">
+            "Que este nuevo capítulo de tu vida esté lleno de luz, amor y todos los sueños que tu corazón alberga. Que cada paso que des sea guiado por la gracia de Dios y rodeado del amor de quienes te quieren."
           </p>
-          <div class="text-[10px] tracking-widest text-royalGold uppercase">
-            <span class="block font-bold">VALERIA</span>
+          <div class="w-16 h-[1px] bg-royalGold/40 my-2"></div>
+          <p class="font-fairy text-2xl text-royalGold mt-1">Con todo mi amor,</p>
+          <div class="text-[11px] tracking-widest text-celeste uppercase mt-1 font-semibold">
+            <span class="block">VALERIA</span>
+          </div>
+          <div class="flex gap-2 mt-3 text-royalGold text-lg">
+            <span>✨</span><span>👑</span><span>✨</span>
           </div>
         </div>
 
@@ -700,6 +803,20 @@
     </section>
 
   </main>
+
+  <!-- FOOTER DE CRÉDITOS -->
+  <footer class="relative z-10 w-full py-5 px-4 text-center border-t border-royalGold/15">
+    <div class="flex flex-col items-center gap-1">
+      <div class="w-8 h-[1px] bg-royalGold/30 mb-1"></div>
+      <p class="text-[9px] text-slate-500 tracking-widest uppercase font-light">Invitación digital creada por</p>
+      <p class="font-royal text-[11px] text-royalGold/70 tracking-[0.3em] font-semibold">GERU</p>
+      <a href="https://api.whatsapp.com/send?phone=573012951258" target="_blank"
+         class="text-[9px] text-slate-500 hover:text-royalGold/70 transition-colors tracking-wider flex items-center gap-1 mt-0.5">
+        <i class="fa-brands fa-whatsapp text-[10px]"></i> +57 301 295 1258
+      </a>
+      <div class="w-8 h-[1px] bg-royalGold/30 mt-1"></div>
+    </div>
+  </footer>
 
   <!-- MEMORY GALLERY LIGHTBOX FRAME -->
   <div id="gallery-lightbox" class="fixed inset-0 z-50 bg-[#030511]/95 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeLightbox()">
@@ -970,7 +1087,7 @@
       const rsvpMessageText = `¡Hola Valeria! ✨👑\n\nQuiero confirmar mi asistencia a tu mágica fiesta de Quince Años:\n\n👤 *Nombre del Invitado:* ${guestName}\n💌 *Asistencia:* Confirmada${additionalNote}\n\n¡Tengo muchas ganas de festejar este gran día! 🌌`;
 
       const encodedMessage = encodeURIComponent(rsvpMessageText);
-      const adminPhoneNumber = "573195607767"; 
+      const adminPhoneNumber = "573194253728"; 
       const whatsappURL = `https://api.whatsapp.com/send?phone=${adminPhoneNumber}&text=${encodedMessage}`;
 
       document.getElementById('modal-status-msg').innerText = `Hola ${guestName}, hemos generado la confirmación para Valeria. Serás dirigido a WhatsApp para enviarla formalmente.`;
